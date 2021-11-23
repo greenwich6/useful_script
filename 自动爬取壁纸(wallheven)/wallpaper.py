@@ -32,7 +32,7 @@ def gotoOverview(xpathOfImg,driver,handle):
 
 if __name__=='__main__':
     num = 24 #下载图片的数量
-    url = 'https://wallhaven.cc/search?categories=110&purity=100&topRange=3M&sorting=toplist&order=desc&page=2'
+    url = 'https://wallhaven.cc/search?categories=110&purity=100&topRange=6M&sorting=toplist&order=desc&page=1'
     driver = webdriver.Chrome('C:/chromedriver.exe')#chromedriver的存放目录
     driver.implicitly_wait(30)
     driver.get(url) #进入网站

@@ -4,7 +4,7 @@ from selenium import webdriver    #模拟浏览器行为的库
 #下载图片
 def downloadImg(driver):
 
-    crop_button = driver.find_element_by_xpath('/html/body/aside/div/div[1]/div[3]/ul/li[2]/a')  # 点击裁剪图片
+    crop_button = driver.find_element_by_xpath('/html/body/aside/div/div[1]/div[3]/ul/li[2]/a')  # 定位元素--裁剪图片
     crop_button.click()
 
     size_bt = driver.find_element_by_xpath('//*[@id="respicker-form"]/div/table/tbody/tr[2]/td[1]/label')#选择尺寸

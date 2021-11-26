@@ -3,7 +3,6 @@ import ctypes
 import os
 import random
 import functools
-
 import schedule
 
 index = 0

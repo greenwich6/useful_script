@@ -52,4 +52,4 @@ def scheduler(job: staticmethod, interval, arg_num, *args) -> None:
 
 
 if __name__ == '__main__':
-    scheduler(change_background_job, 60, 1, r'C:\Users\Administrator\Downloads')
+    scheduler(change_background_job, 10, 1, r'C:\Users\Administrator\Downloads')

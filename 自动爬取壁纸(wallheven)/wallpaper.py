@@ -1,3 +1,4 @@
+
 import sys,time
 from selenium import webdriver    #模拟浏览器行为的库
 
@@ -33,7 +34,7 @@ def gotoOverview(xpathOfImg,driver,handle):
 if __name__=='__main__':
     num = 24 #下载图片的数量
     url = 'https://wallhaven.cc/search?categories=110&purity=100&topRange=6M&sorting=toplist&order=desc&page=1'
-    driver = webdriver.Chrome('C:/chromedriver.exe')#chromedriver的存放目录
+    driver = webdriver.Chrome('C:\Python310\Tools\chromedriver.exe')#chromedriver的存放目录
     driver.implicitly_wait(30)
     driver.get(url) #进入网站
     handle = driver.current_window_handle#获得当前窗口句柄

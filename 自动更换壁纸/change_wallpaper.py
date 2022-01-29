@@ -52,4 +52,8 @@ def scheduler(job: staticmethod, interval, arg_num, *args) -> None:
 
 
 if __name__ == '__main__':
+<<<<<<< HEAD
     scheduler(change_background_job, 10, 1, r'D:\OneDrive\图片')
+=======
+    scheduler(change_background_job, 10, 1, r'D:/Onedrive/图片')
+>>>>>>> de3818336ee0ab27ed8a161a4e19bb7a81172c99

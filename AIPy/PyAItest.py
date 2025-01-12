@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk, scrolledtext
+from tkinter import ttk, scrolledtext, filedialog
 import threading
 import requests
 import pyttsx3
@@ -8,6 +8,8 @@ import pyaudio
 import queue
 import time
 import os
+from pydub import AudioSegment
+import numpy as np
 
 # DeepSeek API 配置
 API_KEY = "sk-47f1d92d349043a68d5971b183ca5557"  # 你的 DeepSeek API Key
@@ -141,6 +143,34 @@ def on_stop_button_click():
     is_recording = False
     message_queue.put("录音已停止。\n")
 
+# 处理导入录音文件
+def on_import_button_click():
+    file_path = filedialog.askopenfilename(
+        title="选择录音文件",
+        filetypes=[("音频文件", "*.wav *.mp3 *.ogg *.flac")]
+    )
+    if not file_path:
+        return
+
+    try:
+        # 使用 pydub 加载音频文件
+        audio = AudioSegment.from_file(file_path)
+        # 转换为单声道、16kHz、16位 PCM 格式
+        audio = audio.set_channels(1).set_frame_rate(16000).set_sample_width(2)
+        # 将音频数据转换为字节流
+        raw_data = np.array(audio.get_array_of_samples()).tobytes()
+
+        # 使用 Vosk 识别音频
+        if recognizer.AcceptWaveform(raw_data):
+            text = recognizer.Result()
+            text = eval(text)["text"]  # 提取识别结果
+            if text:
+                print("识别结果:", text)
+                message_queue.put(f"你: {text}\n")  # 更新界面
+                api_queue.put(text)  # 将用户输入放入 API 队列
+    except Exception as e:
+        message_queue.put(f"错误: 无法处理文件 {file_path}。{str(e)}\n")
+
 # 处理输入框回车事件
 def on_entry_return(event):
     user_input = user_entry.get()
@@ -184,6 +214,10 @@ record_button.pack(side=tk.LEFT, padx=5)
 # 停止录音按钮
 stop_button = ttk.Button(button_frame, text="停止录音", command=on_stop_button_click)
 stop_button.pack(side=tk.LEFT, padx=5)
+
+# 导入录音文件按钮
+import_button = ttk.Button(button_frame, text="导入录音文件", command=on_import_button_click)
+import_button.pack(side=tk.LEFT, padx=5)
 
 # 输入框
 user_entry = ttk.Entry(root, width=50)
